@@ -27,7 +27,7 @@
       { id: 's9', title: 'Evaluate expressions', lesson: '3-5', blurb: 'Substitute decimals and fractions.' },
       { id: 's10', title: 'Least common multiple', lesson: '3-2', blurb: 'When do two patterns line up?' },
       { id: 's11', title: 'Spot equivalent expressions', lesson: '3-6 and 3-7', blurb: 'Different look, same value.' },
-      { id: 's12', title: 'Exponents, prime factors, and order of operations', lesson: '3-1 to 3-3', blurb: 'Skills from the first half of the topic.' }
+      { id: 's12', title: 'Exponents and order of operations', lesson: '3-1 and 3-3', blurb: 'Skills from the first half of the topic.' }
     ],
 
     problems: [
@@ -355,10 +355,10 @@ Write an expression for the total amount Yolanda will pay.`,
           m`List the factors of the smaller number, then find the largest one that also divides the bigger number. For 21: the factors are 1, 3, 7, 21.`
         ],
         steps: [
-          m`**8, 52:** $8 = 2 \times 2 \times 2$ and $52 = 2 \times 2 \times 13$. They share $2 \times 2$, so the GCF is 4.`,
-          m`**21, 49:** $21 = 3 \times 7$ and $49 = 7 \times 7$. The GCF is 7.`,
-          m`**22, 55:** $22 = 2 \times 11$ and $55 = 5 \times 11$. The GCF is 11.`,
-          m`**32, 81:** $32 = 2 \times 2 \times 2 \times 2 \times 2$ and $81 = 3 \times 3 \times 3 \times 3$. They share no prime factors, so the GCF is 1.`,
+          m`**8, 52:** The factors of 8 are 1, 2, 4, 8. The greatest one that also divides 52 is 4 ($52 \div 4 = 13$).`,
+          m`**21, 49:** The factors of 21 are 1, 3, 7, 21. The greatest one that also divides 49 is 7 ($49 \div 7 = 7$).`,
+          m`**22, 55:** The factors of 22 are 1, 2, 11, 22. The greatest one that also divides 55 is 11 ($55 \div 11 = 5$).`,
+          m`**32, 81:** The factors of 32 are 1, 2, 4, 8, 16, 32. Only 1 also divides 81, so the GCF is 1.`,
           m`**Answer:** 4, 7, 11, and 1`
         ]
       },
@@ -370,13 +370,13 @@ What is the greatest number of bags you can fill?`,
         answer: '25', unit: 'bags',
         hints: [
           m`The number of bags must divide **both** 50 and 75 evenly. You want the greatest number that does.`,
-          m`Find the GCF of 50 and 75. $50 = 2 \times 5 \times 5$ and $75 = 3 \times 5 \times 5$.`
+          m`Find the GCF of 50 and 75. List the factors of 50: 1, 2, 5, 10, 25, 50. Which is the greatest one that also divides 75?`
         ],
         steps: [
           m`The greatest number of identical bags is the GCF of 50 and 75.`,
-          m`$50 = 2 \times 5 \times 5$`,
-          m`$75 = 3 \times 5 \times 5$`,
-          m`They share $5 \times 5 = 25$.`,
+          m`Factors of 50: 1, 2, 5, 10, **25**, 50`,
+          m`Factors of 75: 1, 3, 5, 15, **25**, 75`,
+          m`The greatest factor they share is 25.`,
           m`**Answer:** 25 bags (each has 2 blueberry and 3 cranberry scones)`
         ]
       },
@@ -714,7 +714,7 @@ $$2x + 7 + 6x - x$$`,
       },
 
       /* ------------------------------------------------------------------ *
-       * 12 · Exponents, prime factors, order of operations (Lessons 3-1 to 3-3)
+       * 12 · Exponents and order of operations (Lessons 3-1 and 3-3)
        * ------------------------------------------------------------------ */
       {
         id: 's12-a', section: 's12', type: 'multi',
@@ -730,24 +730,6 @@ $$2x + 7 + 6x - x$$`,
           m`$5 \times 5 \times 5 \times 5 = 625$ ✗ and that is what $5^4$ means ✗`,
           m`$2^{10} = 2^5 \times 2^5 = 32 \times 32 = 1{,}024$ ✓`,
           m`**Answer:** $4 \times 4 \times 4 \times 4 \times 4$, $\;4^5$, and $2^{10}$`
-        ]
-      },
-      {
-        id: 's12-b', section: 's12', type: 'factor',
-        prompt: m`Write the prime factorization of 84.
-
-Type it as a product, like 2 x 3 x 5. You can use exponents, like 2^2.`,
-        target: 84, answer: '2 × 2 × 3 × 7',
-        hints: [
-          m`Start a factor tree. 84 is even, so begin with $84 = 2 \times 42$.`,
-          m`Keep going until every factor is prime: $42 = 2 \times 21$ and $21 = 3 \times 7$.`
-        ],
-        steps: [
-          m`$84 = 2 \times 42$`,
-          m`$42 = 2 \times 21$`,
-          m`$21 = 3 \times 7$`,
-          m`2, 3, and 7 are all prime, so stop.`,
-          m`**Answer:** $2 \times 2 \times 3 \times 7$, which can also be written $2^2 \times 3 \times 7$`
         ]
       },
       {

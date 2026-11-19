@@ -15,7 +15,7 @@ window.WDMS = {
       title: 'Topic 3 Test Review',
       subtitle: 'Numeric and Algebraic Expressions',
       skills: ['Exponents', 'GCF and LCM', 'Order of operations', 'Writing expressions', 'Evaluating expressions', 'Equivalent expressions'],
-      problems: 37
+      problems: 36
     }
   ],
 

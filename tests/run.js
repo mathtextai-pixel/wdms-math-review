@@ -64,7 +64,7 @@ ok(expr('65x-25', '65x - 25', { maxTerms: 2, noParens: true }).correct, 'subtrac
 ok(expr('-25 + 65x', '65x - 25', { maxTerms: 2, noParens: true }).correct, 'leading negative');
 ok(!expr('25 - 65x', '65x - 25').correct, 'reversed subtraction');
 
-const fac = (input) => MC.checkFactorization(input, 84);
+const fac = (input) => MC.checkFactorization(input, 84); // kept for future reviews
 ok(fac('2 x 2 x 3 x 7').correct, 'factorization with x');
 ok(fac('7*3*2*2').correct, 'factorization any order');
 ok(fac('2^2 × 3 × 7').correct, 'factorization with exponent');
