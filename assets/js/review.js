@@ -228,7 +228,7 @@
     var stepsBox = el('div');
 
     var checkButton = el('button', { type: 'button', class: 'btn btn-primary', onclick: check }, 'Check answer');
-    var nextButton = el('button', { type: 'button', class: 'btn btn-gold', hidden: true, onclick: advance });
+    var nextButton = el('button', { type: 'button', class: 'btn btn-dark', hidden: true, onclick: advance });
     var hintButton = el('button', { type: 'button', class: 'btn btn-outline', onclick: showHint }, icon('bulb'), 'Hint');
     var stepsButton = el('button', { type: 'button', class: 'btn btn-ghost', onclick: showSteps }, icon('eye'), 'Show steps');
 
@@ -788,7 +788,7 @@
 
   function celebrate(pieces) {
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    var colors = ['#0e4507', '#2a7d20', '#e6c654', '#d4af1c', '#f0d077', '#7fb873'];
+    var colors = ['#0e4507', '#2a7d20', '#101310', '#7fb873', '#c9e0c4', '#4a524b'];
     var layer = el('div', { class: 'confetti', 'aria-hidden': 'true' });
     for (var i = 0; i < pieces; i++) {
       var piece = document.createElement('i');

@@ -16,7 +16,7 @@
     return el('a', { class: 'review-card', href: 'review.html?id=' + encodeURIComponent(review.id) },
       el('div', { class: 'card-top' },
         el('span', { class: 'pill' }, 'Grade ' + review.grade + ' · ' + review.label),
-        el('span', { class: 'pill pill-gold' }, review.problems + ' problems')
+        el('span', { class: 'pill pill-dark' }, review.problems + ' problems')
       ),
       el('h2', { text: review.title }),
       el('p', { class: 'sub', text: review.subtitle }),
