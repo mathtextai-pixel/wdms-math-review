@@ -588,3 +588,27 @@ button { font: inherit; color: inherit; cursor: pointer; }
   .site-header, .site-footer, .actions, .run-nav, .dots, .keys { display: none !important; }
   body { background: #fff; }
 }
+
+/* --------------------------------------------------------------------------
+   Teacher page
+   -------------------------------------------------------------------------- */
+.link-row {
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; margin-bottom: 10px; box-shadow: var(--shadow-sm);
+}
+.link-row-home { margin: 6px 0 0; background: var(--green-50); border-color: var(--green-100); box-shadow: none; }
+.link-info { flex: 1; min-width: 220px; }
+.link-title { font-weight: 660; font-size: 1.08rem; color: var(--green-950); }
+.link-meta { color: var(--muted); font-size: 0.9rem; margin-top: 1px; }
+.link-url { display: inline-block; margin-top: 6px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.86rem; color: var(--green-700); word-break: break-all; }
+.link-actions { display: flex; gap: 8px; flex: none; }
+.btn.is-copied { background: var(--ok); }
+.btn .icon { display: inline-flex; }
+.link-actions .btn-primary .icon { display: none; }
+.link-actions .btn-primary.is-copied .icon { display: inline-flex; }
+.footer-link { color: var(--muted); }
+@media (max-width: 640px) {
+  .link-actions { width: 100%; }
+  .link-actions .btn { flex: 1; }
+  .site-header .header-link .label { display: inline; }
+}

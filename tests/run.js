@@ -138,6 +138,8 @@ for (const entry of WDMS.catalog) {
   const review = WDMS.reviews[entry.id];
   ok(!!review, entry.id + ': review file exists and registers itself');
   if (!review) continue;
+  const direct = path.join(__dirname, '..', entry.id, 'index.html');
+  ok(fs.existsSync(direct) && fs.readFileSync(direct, 'utf8').includes('review.html?id=' + entry.id), entry.id + ': direct link page ' + entry.id + '/index.html exists and points at this review');
   ok(review.grade === entry.grade && review.title === entry.title, entry.id + ': manifest matches review file');
   ok(review.problems.length === entry.problems, entry.id + ': manifest says ' + entry.problems + ' problems, file has ' + review.problems.length);
   const sectionIds = new Set(review.sections.map((s) => s.id));

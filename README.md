@@ -15,6 +15,8 @@ GitHub Pages.
 |---|---|
 | `index.html` | Home page: grade tabs and the list of reviews |
 | `review.html` | Runs one review (`review.html?id=g6-topic3`) |
+| `teacher.html` | Teacher page: the direct link for every review, with copy buttons |
+| `<id>/index.html` | The direct link for one review, for example `/g6-topic3/` |
 | `reviews/manifest.js` | The list of reviews shown on the home page |
 | `reviews/<id>.js` | One file per review: its skills, problems, answers, hints and steps |
 | `assets/js/mathcheck.js` | Reads typed math and checks answers by value |
@@ -29,7 +31,10 @@ GitHub Pages.
 1. Copy `reviews/g6-topic3.js` to a new file, for example `reviews/g7-topic2.js`,
    and change the `id`, `grade`, titles, `sections` and `problems`.
 2. Add one entry for it to `catalog` in `reviews/manifest.js`.
-3. Run the checks (below). They confirm that every problem is well formed and
+3. Copy the `g6-topic3/` folder to a folder named after the new `id` and change
+   the id and title inside its `index.html`. This is the review's direct link,
+   and the teacher page lists it automatically.
+4. Run the checks (below). They confirm that every problem is well formed and
    that each answer key is accepted by the checker.
 
 ### Problem types
