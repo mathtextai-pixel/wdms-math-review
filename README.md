@@ -45,7 +45,9 @@ GitHub Pages.
 
 1. Copy `games/g6-topic3.js` to `games/<id>.js`, using the same `id` as the
    review it goes with, and write new categories and questions. Every tile
-   needs at least two questions so the board can change from game to game.
+   needs at least two questions so the board can change from game to game,
+   and every question needs `steps`: a short explanation shown when the
+   teacher taps "How to solve it".
 2. Set `jeopardy: true` on that review's entry in `reviews/manifest.js`.
 3. Copy the `g6-topic3-jeopardy/` folder to `<id>-jeopardy/` and change the id
    and title inside its `index.html`.

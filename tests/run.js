@@ -195,10 +195,11 @@ for (const entry of WDMS.catalog.filter((e) => e.jeopardy)) {
   const seenQuestions = new Set();
   const reviewPrompts = new Set(((WDMS.reviews[entry.id] || {}).problems || []).map((p) => p.prompt));
   for (const [label, q] of questions) {
-    ['q', 'a', 'how', 'key'].forEach((field) => ok(typeof q[field] === 'string' && q[field].trim().length > 0, where + ': ' + label + ' has "' + field + '"'));
+    ['q', 'a', 'key'].forEach((field) => ok(typeof q[field] === 'string' && q[field].trim().length > 0, where + ': ' + label + ' has "' + field + '"'));
+    ok(Array.isArray(q.steps) && q.steps.length >= 2 && q.steps.length <= 6, where + ': ' + label + ' has 2 to 6 explanation steps');
     checkText(q.q, where + ' ' + label + ' question');
     checkText(q.a, where + ' ' + label + ' answer');
-    checkText(q.how, where + ' ' + label + ' explanation');
+    (q.steps || []).forEach((step) => checkText(step, where + ' ' + label + ' step'));
     ok(!seenQuestions.has(q.q), where + ': ' + label + ' is not a repeat'); seenQuestions.add(q.q);
     ok(!reviewPrompts.has(q.q), where + ': ' + label + ' is not copied from the study review');
     try { MC.parse(q.key); passed++; } catch (e) { failures.push(where + ': ' + label + ' key "' + q.key + '" is not readable math'); }

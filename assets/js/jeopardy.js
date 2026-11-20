@@ -555,11 +555,39 @@
     return el('div', { class: 'q-text' + (plain.length > 110 ? ' is-long' : ''), html: UI.rich(source) });
   }
 
-  function answerBox(question) {
-    return el('div', { class: 'answer-box' },
-      el('span', { class: 'answer-label', text: 'Answer' }),
-      el('div', { class: 'answer-text', html: UI.inline(question.a) }),
-      question.how ? el('div', { class: 'answer-how', html: UI.inline(question.how) }) : null
+  // The answer, plus a "How to solve it" button that opens numbered steps.
+  // `holder` is the current question (or Final Jeopardy) so the open/closed
+  // choice survives a refresh.
+  function solution(question, holder, body) {
+    var panel = el('div', { class: 'how-panel', id: 'how-panel' },
+      el('div', { class: 'how-head' }, icon('bulb'), 'How to solve it'),
+      el('ol', { class: 'how-steps' }, question.steps.map(function (step) { return el('li', { html: UI.inline(step) }); }))
+    );
+    var toggle = el('button', { type: 'button', class: 'btn btn-outline how-toggle', id: 'show-steps', 'aria-controls': 'how-panel' });
+
+    function paint() {
+      var open = !!holder.explained;
+      panel.hidden = !open;
+      body.classList.toggle('is-explained', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.innerHTML = '';
+      toggle.appendChild(icon(open ? 'x' : 'bulb'));
+      toggle.appendChild(document.createTextNode(open ? 'Hide the steps' : 'How to solve it'));
+    }
+    toggle.addEventListener('click', function () {
+      holder.explained = !holder.explained;
+      save(); paint();
+      if (holder.explained) panel.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    });
+    paint();
+
+    return el('div', { class: 'solution' },
+      el('div', { class: 'answer-box' },
+        el('span', { class: 'answer-label', text: 'Answer' }),
+        el('div', { class: 'answer-text', html: UI.inline(question.a) }),
+        toggle
+      ),
+      panel
     );
   }
 
@@ -594,9 +622,8 @@
       hideTimer();
       save();
       play('reveal');
-      body.appendChild(answerBox(question));
+      body.appendChild(solution(question, cur, body));
       paintFoot();
-      body.scrollTop = body.scrollHeight;
     }
 
     // Undo any points from this question and leave the tile on the board.
@@ -614,7 +641,7 @@
       save(); render();
     }
 
-    if (cur.revealed) body.appendChild(answerBox(question));
+    if (cur.revealed) body.appendChild(solution(question, cur, body));
     paintFoot();
 
     setView(el('div', { class: 'qscreen' },
@@ -696,7 +723,7 @@
           el('span', { class: 'spacer' }),
           el('button', { type: 'button', class: 'btn btn-primary btn-xl', id: 'show-answer', onclick: function () {
             final.revealed = true; hideTimer(); save(); play('reveal');
-            body.appendChild(answerBox(question)); paintFoot(); body.scrollTop = body.scrollHeight;
+            body.appendChild(solution(question, final, body)); paintFoot();
           } }, 'Show answer')
         ));
         return;
@@ -708,7 +735,7 @@
       ));
     }
 
-    if (final.revealed) body.appendChild(answerBox(question));
+    if (final.revealed) body.appendChild(solution(question, final, body));
     paintFoot();
     setView(el('div', { class: 'qscreen' },
       el('div', { class: 'q-head' },
