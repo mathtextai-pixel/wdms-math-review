@@ -166,6 +166,45 @@ for (const entry of WDMS.catalog) {
   for (const s of review.sections) ok(review.problems.some((p) => p.section === s.id), entry.id + ': section ' + s.id + ' has problems');
 }
 
+/* ---------- 3. the Jeopardy games ---------- */
+
+const gameDir = path.join(__dirname, '..', 'games');
+if (fs.existsSync(gameDir)) for (const file of fs.readdirSync(gameDir)) if (file.endsWith('.js')) require(path.join(gameDir, file));
+
+for (const entry of WDMS.catalog.filter((e) => e.jeopardy)) {
+  const game = WDMS.games[entry.id];
+  const where = entry.id + ' jeopardy';
+  ok(!!game, where + ': games/' + entry.id + '.js exists and registers itself');
+  if (!game) continue;
+  const direct = path.join(__dirname, '..', entry.id + '-jeopardy', 'index.html');
+  ok(fs.existsSync(direct) && fs.readFileSync(direct, 'utf8').includes('jeopardy.html?id=' + entry.id), where + ': direct link page exists');
+  ok(game.grade === entry.grade, where + ': grade matches the manifest');
+  ok(Array.isArray(game.values) && game.values.length === 5, where + ': five point values');
+  ok(game.categories.length >= 4 && game.categories.length <= 6, where + ': four to six categories');
+  ok(Array.isArray(game.finals) && game.finals.length >= 2, where + ': at least two Final Jeopardy questions');
+  const questions = [];
+  game.categories.forEach((category) => {
+    ok(typeof category.name === 'string' && category.name.length > 0, where + ': category name');
+    ok(category.tiles.length === game.values.length, where + ': ' + category.name + ' has one tile per value');
+    category.tiles.forEach((options, r) => {
+      ok(Array.isArray(options) && options.length >= 2, where + ': ' + category.name + ' ' + game.values[r] + ' has at least two questions');
+      options.forEach((q) => questions.push([category.name + ' ' + game.values[r], q]));
+    });
+  });
+  game.finals.forEach((q) => { ok(typeof q.category === 'string' && q.category.length > 0, where + ': final category'); questions.push(['final', q]); });
+  const seenQuestions = new Set();
+  const reviewPrompts = new Set(((WDMS.reviews[entry.id] || {}).problems || []).map((p) => p.prompt));
+  for (const [label, q] of questions) {
+    ['q', 'a', 'how', 'key'].forEach((field) => ok(typeof q[field] === 'string' && q[field].trim().length > 0, where + ': ' + label + ' has "' + field + '"'));
+    checkText(q.q, where + ' ' + label + ' question');
+    checkText(q.a, where + ' ' + label + ' answer');
+    checkText(q.how, where + ' ' + label + ' explanation');
+    ok(!seenQuestions.has(q.q), where + ': ' + label + ' is not a repeat'); seenQuestions.add(q.q);
+    ok(!reviewPrompts.has(q.q), where + ': ' + label + ' is not copied from the study review');
+    try { MC.parse(q.key); passed++; } catch (e) { failures.push(where + ': ' + label + ' key "' + q.key + '" is not readable math'); }
+  }
+}
+
 if (failures.length) {
   console.error('FAILED (' + failures.length + ')');
   failures.forEach((f) => console.error('  ✗ ' + f));

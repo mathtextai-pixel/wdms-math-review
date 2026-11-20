@@ -1,4 +1,4 @@
-/* teacher.js — the teacher page: one direct link per review, with a copy button. */
+/* teacher.js — the teacher page: one direct link per review and per game, with a copy button. */
 (function () {
   'use strict';
   var el = UI.el;
@@ -58,6 +58,10 @@
     reviews.forEach(function (review) {
       var meta = review.subtitle + ' · ' + review.problems + ' problems';
       list.appendChild(el('div', { class: 'link-row' }, linkRow(review.title, meta, absolute(review.id + '/'))));
+      if (review.jeopardy) {
+        list.appendChild(el('div', { class: 'link-row' },
+          linkRow(review.label + ' Jeopardy', 'Class game with team scores, or solo play', absolute(review.id + '-jeopardy/'))));
+      }
     });
   });
 })();

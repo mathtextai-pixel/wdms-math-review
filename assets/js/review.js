@@ -65,6 +65,10 @@
     window.scrollTo(0, 0);
   }
 
+  function hasJeopardy() {
+    return WDMS.catalog.some(function (entry) { return entry.id === review.id && entry.jeopardy; });
+  }
+
   function plural(count, word) { return count + ' ' + word + (count === 1 ? '' : 's'); }
 
   /* ======================================================================
@@ -108,7 +112,8 @@
           el('button', {
             type: 'button', class: 'btn btn-primary btn-lg', id: 'start-full',
             onclick: function () { startRun(review.problems.map(function (p) { return p.id; }), 'Full review'); }
-          }, 'Start the full review', icon('arrowRight'))
+          }, 'Start the full review', icon('arrowRight')),
+          hasJeopardy() ? el('a', { class: 'btn btn-dark btn-lg', href: 'jeopardy.html?id=' + encodeURIComponent(review.id) }, 'Play Jeopardy') : null
         ),
         el('p', { class: 'intro-note', text: 'Check each answer as you go. Use a hint if you get stuck, or show the steps to see how it\'s solved. Nothing is saved, so you can practice as many times as you like.' })
       ),

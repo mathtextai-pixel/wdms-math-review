@@ -5,6 +5,9 @@
  *   1. Create reviews/<id>.js (copy the shape of g6-topic3.js).
  *   2. Add one entry to `catalog` below.
  * That's it — the home page and the review page pick it up automatically.
+ *
+ * A review can also have a Jeopardy game: create games/<id>.js (copy the shape
+ * of games/g6-topic3.js) and set `jeopardy: true` on its entry below.
  */
 window.WDMS = {
   catalog: [
@@ -15,7 +18,8 @@ window.WDMS = {
       title: 'Topic 3 Test Review',
       subtitle: 'Numeric and Algebraic Expressions',
       skills: ['Exponents', 'GCF and LCM', 'Order of operations', 'Writing expressions', 'Evaluating expressions', 'Equivalent expressions'],
-      problems: 36
+      problems: 36,
+      jeopardy: true
     }
   ],
 
@@ -23,5 +27,11 @@ window.WDMS = {
 
   registerReview: function (review) {
     this.reviews[review.id] = review;
+  },
+
+  games: {},
+
+  registerGame: function (game) {
+    this.games[game.id] = game;
   }
 };

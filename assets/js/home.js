@@ -13,15 +13,19 @@
   }
 
   function card(review) {
-    return el('a', { class: 'review-card', href: 'review.html?id=' + encodeURIComponent(review.id) },
+    var study = 'review.html?id=' + encodeURIComponent(review.id);
+    return el('article', { class: 'review-card' },
       el('div', { class: 'card-top' },
         el('span', { class: 'pill' }, 'Grade ' + review.grade + ' · ' + review.label),
         el('span', { class: 'pill pill-dark' }, review.problems + ' problems')
       ),
-      el('h2', { text: review.title }),
+      el('h2', null, el('a', { class: 'card-title-link', href: study, text: review.title })),
       el('p', { class: 'sub', text: review.subtitle }),
       el('ul', { class: 'skill-tags' }, (review.skills || []).map(function (skill) { return el('li', { text: skill }); })),
-      el('div', { class: 'card-cta' }, 'Start reviewing', UI.icon('arrowRight'))
+      el('div', { class: 'card-actions' },
+        el('a', { class: 'btn btn-primary', href: study }, 'Start reviewing', UI.icon('arrowRight')),
+        review.jeopardy ? el('a', { class: 'btn btn-dark', href: 'jeopardy.html?id=' + encodeURIComponent(review.id) }, 'Play Jeopardy') : null
+      )
     );
   }
 
