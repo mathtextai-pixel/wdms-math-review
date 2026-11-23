@@ -30,6 +30,8 @@ ok(num('2¾', '11/4'), 'unicode fraction');
 ok(num('88.5', '88.50'), 'money without trailing zero');
 ok(num('1.9 x 10^5', '190000'), 'x as times in a number');
 ok(!num('281', '280'), 'wrong number');
+ok(!num('9450', '-9450') && MC.checkNumber('9450', '-9450').signOnly, 'wrong sign is flagged');
+ok(!MC.checkNumber('-280', '281').signOnly, 'a different number is not a sign mistake');
 ok(!num('2.7', '11/4'), 'close but wrong');
 ok(MC.checkNumber('', '5').empty, 'empty number');
 ok(MC.checkNumber('2 +', '5').unreadable, 'unfinished number');

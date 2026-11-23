@@ -268,7 +268,12 @@
     var want = evaluate(parse(String(expected), { numeric: true }), {});
     var got;
     try { got = evaluate(tree, {}); } catch (e2) { return result(false, 'Type just a number here.', { unreadable: true }); }
-    return result(close(got, want), '');
+    if (close(got, want)) return result(true, '');
+    // Right size, wrong sign: worth pointing out, especially with integers.
+    if (want !== 0 && close(got, -want)) {
+      return result(false, 'Check the sign. Should your answer be positive or negative?', { signOnly: true });
+    }
+    return result(false, '');
   }
 
   /*

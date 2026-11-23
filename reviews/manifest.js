@@ -20,6 +20,16 @@ window.WDMS = {
       skills: ['Exponents', 'GCF and LCM', 'Order of operations', 'Writing expressions', 'Evaluating expressions', 'Equivalent expressions'],
       problems: 36,
       jeopardy: true
+    },
+    {
+      id: 'g7-topic1',
+      grade: 7,
+      label: 'Topic 1',
+      title: 'Topic 1 Test Review',
+      subtitle: 'Integers and Rational Numbers',
+      skills: ['Opposites and absolute value', 'Fractions as decimals', 'Add and subtract', 'Multiply and divide', 'Rates of change', 'Real-world problems'],
+      problems: 36,
+      jeopardy: true
     }
   ],
 
