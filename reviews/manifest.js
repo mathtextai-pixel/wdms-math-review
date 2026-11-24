@@ -30,6 +30,16 @@ window.WDMS = {
       skills: ['Opposites and absolute value', 'Fractions as decimals', 'Add and subtract', 'Multiply and divide', 'Rates of change', 'Real-world problems'],
       problems: 36,
       jeopardy: true
+    },
+    {
+      id: 'g7-topic4-mid',
+      grade: 7,
+      label: 'Topic 4 Mid-Topic',
+      title: 'Topic 4 Mid-Topic Quiz Review',
+      subtitle: 'Write, Simplify, Expand, and Factor Expressions',
+      skills: ['Variable and constant terms', 'Writing expressions', 'Combining like terms', 'Expanding', 'Factoring with the GCF'],
+      problems: 33,
+      jeopardy: true
     }
   ],
 

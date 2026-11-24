@@ -77,6 +77,13 @@ ok(!fac('2 x 3 x 7').correct && !fac('2 x 3 x 7').almost, 'wrong product');
 ok(fac('84').almost, 'the number itself is not prime');
 ok(fac('2 + 2').almost || !fac('2 + 2').correct, 'not a product');
 
+const g = (input) => MC.checkExpression(input, '7(2x + 7)', { gcf: 7 });
+ok(g('7(2x+7)').correct && g('(2x + 7)7').correct && g('7 × (7 + 2x)').correct, 'factored with the GCF');
+ok(MC.checkExpression('-6(2x - 4 + 3y)', '6(-2x + 4 - 3y)', { gcf: 6 }).correct, 'negative GCF accepted');
+ok(g('14x + 49').almost, 'not factored is "almost"');
+ok(!MC.checkExpression('2(6x + 9y + 13)', '2(6x + 9y + 13)', { gcf: 3 }).correct, 'wrong factor');
+ok(MC.checkExpression('3(4 + 10y)', '6(2 + 5y)', { gcf: 6 }).almost, 'smaller common factor is "almost"');
+ok(!g('7(2x + 8)').correct && !g('7(2x + 8)').almost, 'wrong inside the parentheses');
 ok(MC.countTerms(MC.parse('3x + 2 - y')) === 3, 'count terms');
 ok(MC.countTerms(MC.parse('5(p + b)')) === 1, 'parentheses are one term');
 ok(MC.preview('2(x+1)') !== '' && MC.preview('2(') === '', 'preview');

@@ -280,6 +280,8 @@
    * An algebraic expression.
    *   rules.maxTerms  — the answer must be simplified to at most this many terms
    *   rules.noParens  — the answer must not contain parentheses
+   *   rules.gcf       — the answer must be factored as (this number) × (an expression in parentheses);
+   *                     a negative factor of the same size also counts
    */
   function checkExpression(raw, expected, rules) {
     rules = rules || {};
@@ -303,7 +305,31 @@
     if (rules.maxTerms && countTerms(tree) > rules.maxTerms) {
       return result(false, 'That is equivalent, but it can be simplified more. Combine the like terms.', { almost: true });
     }
+    if (rules.gcf) {
+      var factor = factoredBy(tree);
+      if (factor === null) {
+        return result(false, 'That is equivalent, but it is not factored. Write it as the GCF times an expression in parentheses, like 3(x + 2).', { almost: true });
+      }
+      if (!close(Math.abs(factor), rules.gcf)) {
+        return result(false, Math.abs(factor) < rules.gcf
+          ? 'That is factored, but ' + Math.abs(factor) + ' is not the greatest common factor. You can factor out more.'
+          : 'Check the number in front of the parentheses. It should be the greatest common factor of the terms.', { almost: true });
+      }
+    }
     return result(true, '');
+  }
+
+  // If the expression is (number)(group) or (group)(number), return the number; otherwise null.
+  function factoredBy(tree) {
+    if (tree.t !== 'mul') return null;
+    var sides = [tree.a, tree.b];
+    for (var i = 0; i < 2; i++) {
+      var num = sides[i];
+      var other = sides[1 - i];
+      var isNumber = num.t === 'num' || (num.t === 'neg' && num.a.t === 'num');
+      if (isNumber && other.t === 'grp') return evaluate(num, {});
+    }
+    return null;
   }
 
   function listOf(names) {

@@ -65,6 +65,9 @@
     window.scrollTo(0, 0);
   }
 
+  // What the review prepares for: 'test' (the default) or 'quiz'.
+  function assessment() { return review.assessment || 'test'; }
+
   function hasJeopardy() {
     return WDMS.catalog.some(function (entry) { return entry.id === review.id && entry.jeopardy; });
   }
@@ -100,12 +103,12 @@
 
     setView(el('div', null,
       el('section', { class: 'intro-card' },
-        el('span', { class: 'eyebrow' }, 'Grade ' + review.grade + ' · Test review'),
+        el('span', { class: 'eyebrow' }, 'Grade ' + review.grade + ' · ' + (assessment() === 'quiz' ? 'Quiz review' : 'Test review')),
         el('h1', { text: review.title }),
         el('p', { class: 'intro-sub', text: review.subtitle }),
         el('div', { class: 'stat-row' },
           el('span', { class: 'stat' }, icon('list'), plural(total, 'problem')),
-          el('span', { class: 'stat' }, icon('target'), plural(review.sections.length, 'skill') + ' from the test'),
+          el('span', { class: 'stat' }, icon('target'), plural(review.sections.length, 'skill') + ' from the ' + assessment()),
           el('span', { class: 'stat' }, icon('shuffle'), 'New order every time')
         ),
         el('div', { class: 'intro-actions' },
@@ -119,7 +122,7 @@
       ),
       el('div', { class: 'section-heading' },
         el('h2', { text: 'Or practice one skill' }),
-        el('span', { text: 'In the same order as the test' })
+        el('span', { text: 'In the same order as the ' + assessment() })
       ),
       el('div', { class: 'skill-grid' }, skillCards)
     ));
